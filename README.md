@@ -23,6 +23,7 @@ A comprehensive, production-grade guide and automation toolkit for unlocking, de
 
 ## 🌟 What This Toolkit Achieves
 - 🔓 **TR-069 / CWMP ACS Exploitation:** Enable ADB debugging wirelessly on production locked firmware without hardware disassembly.
+- 📡 **JioFreeView-IPTV (500+ Channels):** Zero-subscription [500+ Free Live TV Channels](docs/free_live_tv_500_channels.md) without JioFiber ISP locks.
 - 📺 **Ad-Free Custom TV Experience:** Replace intrusive default operator launchers with lightweight, customizable **Projectivy Launcher**.
 - 🛒 **True Alternative App Stores:** Direct integration with **Aurora Store** (official Google Play Store API without GMS/certification locks) and **Aptoide TV**.
 - 🔊 **Cinematic Audio Unlock:** Force-enable hidden hardware decoding for **Dolby Atmos**, **DTS-HD Master Audio**, and disable dynamic range compression (DRC).

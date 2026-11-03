@@ -158,7 +158,7 @@ JioTV+ (`com.jio.media.jiotvplus`) requires a Jio connection (JioFiber / AirFibe
 * **Workarounds:**
   1. Route STB traffic through a Jio 4G/5G mobile hotspot.
   2. Use standalone OTT apps (Hotstar, SonyLIV, Zee5, Prime Video) which work across all ISPs.
-  3. Use universal IPTV players (e.g., TiviMate).
+  3. Use universal IPTV players (e.g., [**JioFreeView-IPTV 500+ Free Live Channels Guide**](../../docs/free_live_tv_500_channels.md)).
 
 ---
 
