@@ -1,0 +1,9 @@
+# Logs & Temp files
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+# Local backups
+*.bak
+.DS_Store
