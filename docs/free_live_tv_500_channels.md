@@ -1,4 +1,4 @@
-# 🛰️ JioFreeView-IPTV: 500+ Zero-Subscription Live Channels on Jio STB
+# 🛰️ FreeView-IPTV: 500+ Zero-Subscription Live Channels on Jio STB
 
 [![IPTV](https://img.shields.io/badge/Live_TV-500%2B_Channels-red?logo=youtube&logoColor=white)](#)
 [![No JioFiber Lock](https://img.shields.io/badge/ISP_Lock-Bypassed-brightgreen)](#)
@@ -9,11 +9,11 @@
 
 ---
 
-## 🌟 Why JioFreeView-IPTV?
+## 🌟 Why FreeView-IPTV?
 
 The default **JioTV+** app on Jio Set-Top Boxes has strict server-side locks: it forces an active JioFiber/AirFiber connection and refuses playback over other internet providers (Asianet, Airtel, BSNL, Railwire, or 4G/5G mobile hotspots).
 
-**JioFreeView-IPTV** completely eliminates this restriction by utilizing **TiviMate IPTV Player** paired with legally broadcast public M3U streams and EPG guides.
+**FreeView-IPTV** completely eliminates this restriction by utilizing **TiviMate IPTV Player** paired with legally broadcast public M3U streams and EPG guides.
 
 ### ✨ Highlights
 - 🆓 **100% Free & Legal:** Streams publicly accessible and open-access broadcast feeds (including Prasar Bharati DD Free Dish, major Indian news networks, and regional broadcasters).
@@ -91,7 +91,7 @@ adb push /tmp/india_tv.m3u /sdcard/india_tv.m3u
    * 📁 `/sdcard/malayalam_tv.m3u` *(for Malayalam Channels)*
    * 📁 `/sdcard/india_tv.m3u` *(for 500+ All-India Channels)*
    *(Alternatively, select "Enter URL" and type: `https://iptv-org.github.io/iptv/languages/mal.m3u`)*
-5. Click **Next** -> Enter a playlist name (e.g., `JioFreeView`) -> Click **Done**.
+5. Click **Next** -> Enter a playlist name (e.g., `FreeView-IPTV`) -> Click **Done**.
 6. **Enjoy!** All live channels will immediately populate with full categories.
 
 ---

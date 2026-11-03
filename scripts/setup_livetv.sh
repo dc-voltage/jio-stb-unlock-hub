@@ -1,5 +1,5 @@
 #!/bin/bash
-# 🛰️ One-Click Live TV Setup for Jio STB (JioFreeView-IPTV)
+# 🛰️ One-Click Live TV Setup for Jio STB (FreeView-IPTV)
 # Downloads TiviMate & pushes curated 500+ Indian & Malayalam Live TV playlists
 
 set -e
@@ -8,7 +8,7 @@ STB_IP="${1:-192.168.28.36}"
 ADB_CMD="adb -s $STB_IP:5555"
 
 echo "=========================================================="
-echo "  🛰️ JioFreeView-IPTV: Live TV Provisioning Tool"
+echo "  🛰️ FreeView-IPTV: Live TV Provisioning Tool"
 echo "=========================================================="
 
 echo "[*] Connecting to STB at $STB_IP:5555..."
