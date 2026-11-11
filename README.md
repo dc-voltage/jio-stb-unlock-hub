@@ -7,6 +7,32 @@
 
 A comprehensive, production-grade guide and automation toolkit for unlocking, debloating, and transforming locked **Reliance Jio Set-Top Boxes (STB)** into clean, high-performance Android TV powerhouses.
 
+<p align="center">
+  <img src="tv_screenshot.png" alt="Projectivy Launcher on Jio STB" width="920">
+</p>
+
+<p align="center">
+  <b>✨ Transform Your Locked Jio STB into an Open Android TV Powerhouse</b><br>
+  <i>Running clean Projectivy Launcher, FreeView-IPTV, Dolby Atmos, and Google Play apps via Aurora Store.</i>
+</p>
+
+---
+
+## 📸 Visual Showcase
+
+<table align="center" width="100%">
+  <tr>
+    <td align="center" width="50%">
+      <b>📺 Custom Apps & Sideloaded Tools</b><br><br>
+      <img src="installed_apps_screenshot.png" alt="Installed Apps Grid" width="100%">
+    </td>
+    <td align="center" width="50%">
+      <b>🛒 Aurora Store (Direct Google Play Access)</b><br><br>
+      <img src="aurora_store_screenshot.png" alt="Aurora Store on Jio STB" width="100%">
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## 📑 Supported Hardware & Compatibility Matrix
