@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jio STB (JMSB200Av2) ADB Unlocker — Developed by DC</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.3);
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 980px;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .badge-dev {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #34d399;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+    }
+
+    .card-title svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      color: var(--primary);
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: rgba(11, 15, 25, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-success {
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 700;
+    }
+    .btn-success:hover {
+      background: #059669;
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-sm {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    /* Terminal Output Box */
+    .terminal {
+      background: #080b12;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.6rem;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #10b981;
+      height: 220px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    /* Step Timeline */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .step-number {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid var(--primary);
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .step-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Command snippet with copy button */
+    .code-box {
+      background: #080b12;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 0.4rem;
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .code-text {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #93c5fd;
+      overflow-x: auto;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #0b0f19;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 100;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="badge-dev">⚡ Developed by DC</div>
+      <h1>Jio STB (JMSB200Av2) ADB Unlocker</h1>
+      <p class="subtitle">GenieACS TR-069 Exploitation & Wireless ADB Connect Control Suite for Reliance Jio 4K Android 11 STBs</p>
+    </header>
+
+    <!-- Interactive Control Panel & Terminal -->
+    <div class="grid grid-2">
+      <!-- Controls -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          Interactive Unlock Trigger
+        </h2>
+
+        <div class="form-group">
+          <label for="stbIp">STB LAN IP Address:</label>
+          <input type="text" id="stbIp" value="192.168.28.15" placeholder="e.g. 192.168.1.100">
+        </div>
+
+        <div class="form-group">
+          <label for="nbiUrl">GenieACS NBI API URL:</label>
+          <input type="text" id="nbiUrl" value="http://127.0.0.1:7557" placeholder="http://127.0.0.1:7557">
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="checkGenieAcs()">
+            🔍 1. Check ACS Status
+          </button>
+          <button class="btn btn-success" onclick="pushUnlockRpc()">
+            ⚡ 2. Push ADB Unlock RPC
+          </button>
+          <button class="btn btn-primary" onclick="copyAdbConnect()">
+            📲 3. Copy ADB Connect
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Terminal / Logs -->
+      <div class="card">
+        <h2 class="card-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          Activity Monitor
+        </h2>
+        <div class="terminal" id="termLogs">[*] Jio STB Universal Unlock Suite ready.
+[*] Author: Developed by DC
+[*] Waiting for action... Click "1. Check ACS Status" or "2. Push ADB Unlock RPC"
+</div>
+        <div style="margin-top: 0.75rem; text-align: right;">
+          <button class="btn btn-secondary btn-sm" onclick="clearLogs()">Clear Console</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete Step-by-Step Method Workflow -->
+    <div class="card">
+      <h2 class="card-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+        Complete Method: From Zero to Connected ADB
+      </h2>
+
+      <div class="step-list">
+        <!-- Step 1 -->
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-title">DNS Redirect / Spoofing</div>
+            <div class="step-desc">
+              The STB connects to <code>acs.oss.jio.com:8443</code> over HTTPS. On your local router (OpenWrt/Pi-hole) or PC hotspot, map <code>acs.oss.jio.com</code> to your PC's IP address.
+            </div>
+            <div class="code-box">
+              <span class="code-text"># On router / dnsmasq: address=/acs.oss.jio.com/&lt;YOUR_PC_IP&gt;</span>
+              <button class="btn btn-secondary btn-sm" onclick="copyText('address=/acs.oss.jio.com/<YOUR_PC_IP>')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-title">Start TLS Proxy & GenieACS</div>
+            <div class="step-desc">
+              Run <code>pass_front.py</code> (TLS termination with Jio cert chain) and start GenieACS Docker container.
+            </div>
+            <div class="code-box">
+              <span class="code-text">cd tls && docker compose up -d && python3 pass_front.py</span>
+              <button class="btn btn-secondary btn-sm" onclick="copyText('cd tls && docker compose up -d && python3 pass_front.py')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-title">Reboot STB & Push TR-069 Parameters</div>
+            <div class="step-desc">
+              Turn OFF the STB power at the wall socket for 5 seconds and turn back ON. As soon as the STB phones home, push the USB Debugging parameters:
+            </div>
+            <div class="code-box">
+              <span class="code-text">Device.JSTB.USB.USBDebugging = true | Device.JSTB.USB.DebugValidityDate = 2037-12-31</span>
+              <button class="btn btn-secondary btn-sm" onclick="pushUnlockRpc()">Execute RPC</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <div class="step-title">Connect Wirelessly via ADB</div>
+            <div class="step-desc">
+              Once the parameter is accepted by the STB, Android starts the wireless ADB daemon on port 5555:
+            </div>
+            <div class="code-box">
+              <span class="code-text" id="cmdAdbConnect">adb connect 192.168.28.15:5555</span>
+              <button class="btn btn-secondary btn-sm" onclick="copyAdbConnect()">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <div class="step-title">Critical Fix: Remote "HOME" Key & Provisioning</div>
+            <div class="step-desc">
+              After connecting ADB, run this immediately to enable the physical remote HOME button and unblock Android WindowManager:
+            </div>
+            <div class="code-box">
+              <span class="code-text">adb shell settings put global device_provisioned 1 &amp;&amp; adb shell settings put secure user_setup_complete 1</span>
+              <button class="btn btn-secondary btn-sm" onclick="copyText('adb shell settings put global device_provisioned 1 && adb shell settings put secure user_setup_complete 1 && adb shell settings put secure tv_user_setup_complete 1')">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step-item">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <div class="step-title">Windows One-Click Auto-Runner</div>
+            <div class="step-desc">
+              A pre-configured Windows script is included in this repository. Simply double-click:
+            </div>
+            <div class="code-box">
+              <span class="code-text">Jio_STB_ADB_Unlocker.bat</span>
+              <button class="btn btn-secondary btn-sm" onclick="copyText('Jio_STB_ADB_Unlocker.bat')">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">Copied to clipboard!</div>
+
+    <!-- Footer -->
+    <footer>
+      Jio STB (JMSB200Av2) Universal Modding Hub &bull; <strong>Developed by DC</strong> &bull; For Research and Education
+    </footer>
+  </div>
+
+  <script>
+    function log(msg) {
+      const term = document.getElementById('termLogs');
+      const time = new Date().toLocaleTimeString();
+      term.innerHTML += `[${time}] ${msg}\n`;
+      term.scrollTop = term.scrollHeight;
+    }
+
+    function clearLogs() {
+      document.getElementById('termLogs').innerHTML = '[*] Console cleared.\n';
+    }
+
+    function showToast(text) {
+      const t = document.getElementById('toast');
+      t.innerText = text;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2200);
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt);
+      showToast('Copied: ' + txt);
+    }
+
+    function copyAdbConnect() {
+      const ip = document.getElementById('stbIp').value.trim() || '192.168.28.15';
+      const cmd = `adb connect ${ip}:5555`;
+      copyText(cmd);
+      log(`[CLI]: ${cmd}`);
+    }
+
+    // Update dynamically on IP change
+    document.getElementById('stbIp').addEventListener('input', function() {
+      const ip = this.value.trim() || '192.168.28.15';
+      document.getElementById('cmdAdbConnect').innerText = `adb connect ${ip}:5555`;
+    });
+
+    async function checkGenieAcs() {
+      const nbi = document.getElementById('nbiUrl').value.trim();
+      log(`[*] Checking GenieACS NBI at ${nbi}/devices/ ...`);
+      try {
+        const resp = await fetch(`${nbi}/devices/?projection=_id,_lastInform`, { method: 'GET' });
+        if (resp.ok) {
+          const devices = await resp.json();
+          log(`[✓] GenieACS Connected! Found ${devices.length} registered device(s):`);
+          devices.forEach(d => {
+            log(`    -> Device ID: ${d._id} (Last Inform: ${d._lastInform || 'Never'})`);
+          });
+          showToast(`Found ${devices.length} device(s) in GenieACS!`);
+        } else {
+          log(`[!] GenieACS returned status: ${resp.status}`);
+        }
+      } catch (err) {
+        log(`[!] Connection notice: ${err.message}`);
+        log(`    If opened directly from file://, browser CORS may restrict local HTTP calls.`);
+        log(`    Use the Windows Auto-Script "Jio_STB_ADB_Unlocker.bat" for direct automation!`);
+      }
+    }
+
+    async function pushUnlockRpc() {
+      const nbi = document.getElementById('nbiUrl').value.trim();
+      const ip = document.getElementById('stbIp').value.trim();
+      log(`[*] Preparing TR-069 setParameterValues payload...`);
+
+      const rpcPayloads = [
+        {
+          name: "setParameterValues",
+          parameterValues: [
+            ["Device.JioSTB.USB.USBDebugging", true, "xsd:boolean"],
+            ["Device.JioSTB.USB.DebugValidityDate", "2037-12-31T23:59:59.000Z", "xsd:dateTime"]
+          ]
+        },
+        {
+          name: "setParameterValues",
+          parameterValues: [
+            ["Device.JSTB.USB.USBDebugging", true, "xsd:boolean"],
+            ["Device.JSTB.USB.DebugValidityDate", "2037-12-31T23:59:59.000Z", "xsd:dateTime"]
+          ]
+        },
+        {
+          name: "setParameterValues",
+          parameterValues: [
+            ["Device.JioSTB.FOTA.Disable", "true", "xsd:string"],
+            ["Device.JSTB.FOTA.Disable", "true", "xsd:string"]
+          ]
+        }
+      ];
+
+      log(`[✓] RPC tasks defined:`);
+      log(`    1. Device.JioSTB.USB.USBDebugging = true`);
+      log(`    2. Device.JSTB.USB.USBDebugging = true`);
+      log(`    3. DebugValidityDate = 2037-12-31T23:59:59.000Z`);
+      log(`    4. FOTA.Disable = true`);
+
+      try {
+        const resp = await fetch(`${nbi}/devices/?projection=_id`, { method: 'GET' });
+        if (resp.ok) {
+          const devices = await resp.json();
+          if (devices.length > 0) {
+            for (const d of devices) {
+              const encId = encodeURIComponent(d._id);
+              for (const payload of rpcPayloads) {
+                await fetch(`${nbi}/devices/${encId}/tasks`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+              }
+              log(`[🚀 RPC QUEUED]: Tasks pushed to ${d._id}`);
+            }
+            showToast('TR-069 Unlock tasks queued into GenieACS!');
+          } else {
+            log(`[!] No devices currently online in GenieACS. Power-cycle STB now!`);
+          }
+        }
+      } catch (e) {
+        log(`[*] Sending via browser fetch restricted: Run "Jio_STB_ADB_Unlocker.bat" or python script to dispatch immediately.`);
+      }
+
+      log(`\n👉 NEXT STEP: Power-cycle STB, then run: adb connect ${ip}:5555`);
+    }
+  </script>
+</body>
+</html>

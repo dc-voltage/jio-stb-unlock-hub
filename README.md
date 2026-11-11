@@ -37,6 +37,9 @@ A comprehensive, production-grade guide and automation toolkit for unlocking, de
 ```text
 jio-stb-unlock-hub/
 ├── README.md                          # Main repository landing page & matrix
+├── jio_stb_adb_unlocker.html          # Interactive Web Dashboard & Control Suite (by DC)
+├── Jio_STB_ADB_Unlocker.bat           # Windows 1-Click Double-Clickable Auto Script
+├── Jio_STB_ADB_Unlocker.ps1           # Windows PowerShell Automation Engine
 ├── docs/                              # Universal technical documentation
 │   ├── tr069_exploit_guide.md         # TR-069 / GenieACS setup walkthrough
 │   ├── safe_debloat_guide.md          # Bloatware vs critical service index
@@ -59,6 +62,11 @@ jio-stb-unlock-hub/
 
 ## ⚡ Quick Start: Unlocking Your Device
 
+### Option A: Interactive Web Dashboard / Windows Script (Developed by DC)
+- **Web Dashboard:** Open [`jio_stb_adb_unlocker.html`](jio_stb_adb_unlocker.html) in any web browser for interactive controls, live logs, and one-click RPC execution.
+- **Windows Users:** Simply double-click [`Jio_STB_ADB_Unlocker.bat`](Jio_STB_ADB_Unlocker.bat) to automatically monitor GenieACS, push unlock parameters, and connect ADB.
+
+### Option B: Linux / CLI Automation
 1. **Select Your Model:**
    Head directly to your specific model folder in [`models/`](models/):
    - For **JMSB200Av2 (Android 11)**, see [**JMSB200Av2 Guide**](models/JMSB200Av2/README.md).

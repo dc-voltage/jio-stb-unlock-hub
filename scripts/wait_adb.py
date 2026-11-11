@@ -4,8 +4,10 @@ import subprocess
 import urllib.request
 import json
 
-STB_IP = "192.168.28.36"
-DEVICE_ID = "3C55DB-JMSB200A-RDXSBIKBE247854"
+import sys
+
+STB_IP = sys.argv[1] if len(sys.argv) > 1 else "192.168.28.15"
+DEVICE_ID = sys.argv[2] if len(sys.argv) > 2 else "3C55DB-JMSB200A-RDXSBEKB0039104"
 NBI_URL = "http://127.0.0.1:7557"
 
 print(f"[*] Monitoring GenieACS tasks & ADB for {DEVICE_ID} ({STB_IP})...")

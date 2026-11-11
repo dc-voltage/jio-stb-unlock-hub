@@ -6,8 +6,8 @@ import sys
 import signal
 
 IFACE = "eth1"
-TARGET_IP = "192.168.28.36"
-TARGET_MAC_HEX = "3c55db9425d6"
+TARGET_IP = sys.argv[1] if len(sys.argv) > 1 else "192.168.28.15"
+TARGET_MAC_HEX = sys.argv[2].replace(":", "").lower() if len(sys.argv) > 2 else "3c55db6ef175"
 GATEWAY_IP = "192.168.28.1"
 HOST_MAC_HEX = "000fc923fd85"
 
