@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Jio STB (JMSB200Av2) TR-069 Unlock Architecture",
+    "subtitle": "GenieACS CWMP Exploitation, TLS Proxy, and Wireless ADB Connect Suite (Developed by DC)",
+    "output": "jio_stb_interactive_architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "dc_tool", "type": "frontend", "label": "DC Auto Unlocker", "sublabel": "Web GUI & Batch", "pos": [40, 160], "size": [150, 64], "tag": "Developed by DC" },
+    { "id": "genie_nbi", "type": "backend", "label": "GenieACS NBI", "sublabel": "REST API :7557", "pos": [240, 160], "size": [140, 60] },
+    { "id": "genie_cwmp", "type": "backend", "label": "GenieACS CWMP", "sublabel": "TR-069 Server :7547", "pos": [240, 310], "size": [140, 60] },
+    { "id": "dns_spoof", "type": "cloud", "label": "Router / DNS Spoof", "sublabel": "acs.oss.jio.com", "pos": [440, 160], "size": [150, 60] },
+    { "id": "pass_front", "type": "security", "label": "TLS Proxy (pass_front)", "sublabel": "HTTPS :8443", "pos": [440, 310], "size": [150, 60], "tag": "RIL Root CA" },
+    { "id": "pc_adb", "type": "frontend", "label": "Host PC ADB Client", "sublabel": "CLI / Auto-Connect", "pos": [40, 460], "size": [150, 60] },
+
+    { "id": "stb_core", "type": "external", "label": "JMSB200Av2 STB", "sublabel": "Amlogic Quad-Core", "pos": [720, 160], "size": [150, 60], "tag": "Android 11" },
+    { "id": "tr069_agent", "type": "security", "label": "Jio CWMP Client", "sublabel": "com.jio.tr069client", "pos": [720, 310], "size": [150, 60] },
+    { "id": "adb_daemon", "type": "backend", "label": "Wireless ADB Daemon", "sublabel": "adbd daemon :5555", "pos": [720, 460], "size": [150, 60], "tag": "Port 5555" },
+    { "id": "android_system", "type": "database", "label": "Android TV Framework", "sublabel": "Settings & WindowManager", "pos": [1020, 460], "size": [150, 60], "tag": "Provisioned" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Host PC & Local Gateway (Developed by DC)", "wraps": ["dc_tool", "genie_nbi", "genie_cwmp", "pass_front", "dns_spoof", "pc_adb"] },
+    { "kind": "region", "label": "Jio STB Target (JMSB200Av2 — Android 11)", "wraps": ["stb_core", "tr069_agent", "adb_daemon", "android_system"] }
+  ],
+  "connections": [
+    { "id": "dc-to-nbi", "from": "dc_tool", "to": "genie_nbi", "label": "POST /tasks", "variant": "emphasis" },
+    { "id": "nbi-to-cwmp", "from": "genie_nbi", "to": "genie_cwmp", "label": "queue RPC" },
+    { "id": "stb-to-dns", "from": "stb_core", "to": "dns_spoof", "label": "DNS lookup", "fromSide": "left", "toSide": "right" },
+    { "id": "stb-to-tr069", "from": "stb_core", "to": "tr069_agent", "label": "phone home", "fromSide": "bottom", "toSide": "top" },
+    { "id": "tr069-to-proxy", "from": "tr069_agent", "to": "pass_front", "label": "HTTPS :8443", "variant": "security", "fromSide": "left", "toSide": "right" },
+    { "id": "proxy-to-cwmp", "from": "pass_front", "to": "genie_cwmp", "label": "HTTP :7547", "fromSide": "left", "toSide": "right" },
+    { "id": "tr069-to-adbd", "from": "tr069_agent", "to": "adb_daemon", "label": "activate adbd", "fromSide": "bottom", "toSide": "top" },
+    { "id": "pcadb-to-adbd", "from": "pc_adb", "to": "adb_daemon", "label": "adb connect :5555", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "adbd-to-sys", "from": "adb_daemon", "to": "android_system", "label": "device_provisioned 1", "fromSide": "right", "toSide": "left" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "TR-069 Handshake & Spoofing",
+      "items": [
+        "STB routes acs.oss.jio.com:8443 to the local workstation via DNS redirect",
+        "pass_front.py handles TLS termination using the authentic RILROOTCA cert chain",
+        "Network-check spoof returns valid FTTH network signature"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Automated Exploitation (by DC)",
+      "items": [
+        "DC Auto Unlocker pushes setParameterValues to GenieACS NBI (:7557)",
+        "Device.JioSTB.USB.USBDebugging set to true with validity date 2037",
+        "Firmware FOTA updates and downgrade restrictions are disabled"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Wireless ADB & Provisioning",
+      "items": [
+        "STB receives parameters and starts wireless adbd on port 5555",
+        "Host PC auto-connects wirelessly: adb connect <STB_IP>:5555",
+        "Enables device_provisioned = 1 to unblock the physical remote HOME key"
+      ]
+    }
+  ]
+}
